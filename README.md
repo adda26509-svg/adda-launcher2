@@ -1,96 +1,42 @@
 # Adda Launcher
 
-An Android launcher for Minecraft: Java Edition — vanilla, Fabric, Forge,
-NeoForge, and Quilt — built on Jetpack Compose with Material 3, targeting
-Android 8+ with Java 21 support via a bundled JRE runtime.
+An Android launcher for **Minecraft: Java Edition** — play vanilla, Fabric, Forge, NeoForge, and Quilt right on your phone or tablet.
 
-Adda Launcher is a rebrand and fork of
-[ZalithLauncher2](https://github.com/ZalithLauncher/ZalithLauncher2) by
-MovTery. See [`NOTICE.md`](./NOTICE.md) for exactly what was changed and
-what your obligations are under the GPL-3.0 license this project ships
-under (see [`LICENSE`](./LICENSE)).
+Built with Jetpack Compose and Material 3, targeting Android 8+, with a bundled Java 21 runtime so you don't need to install anything else to play.
 
-## Before you build
+---
 
-This fork is code-complete and renamed, but a few things need your own
-values before it's really "yours" — the original author's identifiers
-were deliberately left as empty placeholders rather than guessed:
+## ✨ Features
 
-1. **Signing keystore.** The original signing keys were removed (they
-   were someone else's private key material). Generate your own:
-   ```
-   keytool -genkeypair -v -keystore AddaLauncher/adda_launcher.jks \
-     -alias adda_launcher -keyalg RSA -keysize 2048 -validity 10000
-   keytool -genkeypair -v -keystore AddaLauncher/adda_launcher_debug.jks \
-     -alias adda_launcher_debug -keyalg RSA -keysize 2048 -validity 10000
-   ```
-   Then set `STORE_PASSWORD` / `KEY_PASSWORD` env vars, or
-   `.store_password.txt` / `.key_password.txt` files in the repo root,
-   matching what you used above.
+- 🎮 **Multiple mod loaders** — Vanilla, Fabric, Forge, NeoForge, Quilt
+- 👤 **Account manager** — Microsoft account login + offline accounts, switch between multiple profiles
+- 📦 **Version manager** — install, delete, and repair game versions with corruption detection
+- 🧩 **Mods, resource packs & shaders** — browse, enable/disable, import, and manage everything from one place
+- 🌍 **Worlds manager** — backup, restore, rename, export your saves
+- 📸 **Screenshot gallery** — view, share, and manage your captures
+- ☁️ **Cloud backup** — OneDrive sync for worlds and screenshots
+- ⚙️ **Deep settings** — Java path, RAM allocation, renderer options, resolution, controls, language, theme
+- 🎨 **Theme engine** — Light, Dark, AMOLED black, and custom accent colors
+- 🚀 **Built for low-end devices** — tuned to run smoothly on 3GB–4GB RAM phones, with smart RAM allocation recommendations
+- 🌐 **Multi-language** — English, Hindi, Urdu (more coming)
 
-2. **Update-check / community / support URLs.** In
-   `AddaLauncher/src/main/java/com/adda/launcher/path/UrlManager.kt`,
-   `URL_PROJECT`, `URL_PROJECT_INFO`, `URL_COMMUNITY`, `URL_WEBLATE`, and
-   `URL_SUPPORT` are placeholders. `URL_PROJECT_INFO` in particular
-   drives the in-app update checker — point it at your own release feed
-   once you have one, or the update check will silently fail (which is
-   safer than the alternative of it pointing at someone else's repo).
+## 📱 Requirements
 
-3. **Microsoft OAuth client ID.** Minecraft login needs an Azure AD app
-   registration. Set `oauth_client_id` in
-   `AddaLauncher/gradle.properties` (see the "Microsoft OAuth" section
-   below).
+- Android 8.0 (Oreo) or newer
+- ARM64 device recommended (armeabi-v7a also supported)
+- 3GB+ RAM (4GB+ recommended for modded play)
 
-4. **CurseForge API key**, if you want in-app mod search against
-   CurseForge — set `curseforge_api_key` in the same file.
+## 📥 Download
 
-5. **App icon.** A simple original placeholder icon (red/black "A"
-   monogram) is included so the app isn't wearing someone else's brand
-   mark, but you'll probably want real design work here before shipping.
+> Pre-built APKs will be published under [Releases](../../releases) once a stable build is ready.
 
-## Building
+For now, see [Building from source](#-building-from-source) below.
 
-Requires Android Studio (Ladybird/Koala or newer) or a command-line
-Gradle + Android SDK/NDK setup, since this project has native (JNI/C)
-components alongside Kotlin.
+## 🛠️ Building from source
 
-```
+Requires Android Studio (or command-line Gradle + Android SDK/NDK, since this project has native components).
+
+```bash
+git clone https://github.com/adda26509-svg/adda-launcher2.git
+cd adda-launcher2
 ./gradlew :AddaLauncher:assembleDebug
-```
-
-The debug build uses the default (insecure, checked-into-source)
-passwords in `AddaLauncher/gradle.properties` unless you override them —
-fine for local testing, **not** fine for anything you distribute.
-
-On a resource-constrained build machine, note this project pulls in
-LWJGL, a native JRE runtime, and multiple ABI-specific `.so` libraries —
-expect a large first build and a large APK per-ABI.
-
-## Setting up Microsoft OAuth
-
-Minecraft account login uses the official Microsoft identity platform:
-
-1. Register an app at the
-   [Azure Portal](https://portal.azure.com) → App registrations.
-2. Add a "Mobile and desktop applications" platform with a redirect URI
-   matching this project's OAuth callback handling.
-3. Copy the Application (client) ID into
-   `AddaLauncher/gradle.properties` as `oauth_client_id`.
-4. You are responsible for complying with Microsoft's identity platform
-   terms of use for your own registered app.
-
-## Module layout
-
-- `AddaLauncher/` — the app itself (`com.adda.launcher`)
-- `ColorPicker/` — in-house Compose color picker (`com.adda.colorpicker`)
-- `LayerController/` — on-screen control layout editor
-  (`com.adda.layer_controller`)
-- `Terracotta/` — third-party LAN/VPN networking module (unchanged,
-  separate license — see its own `LICENSE`/headers)
-- `LWJGL/` — bundled LWJGL + Caciocavallo AWT bridge for running the
-  Minecraft JVM's rendering and input on Android (unchanged, separate
-  license)
-
-## License
-
-GPL-3.0. See `LICENSE` and `NOTICE.md`.

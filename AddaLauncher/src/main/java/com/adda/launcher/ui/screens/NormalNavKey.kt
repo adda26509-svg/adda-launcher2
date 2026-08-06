@@ -104,10 +104,6 @@ sealed interface NormalNavKey : TitledNavKey {
         @Serializable data object ControlManager : Settings {
             override val title: Int = R.string.settings_tab_control_manage
         }
-        /** 关于屏幕 */
-        @Serializable data object AboutInfo : Settings {
-            override val title: Int = R.string.settings_tab_info_about
-        }
     }
 
     /** 版本详细设置嵌套子屏幕 */
