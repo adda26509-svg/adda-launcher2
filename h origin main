@@ -1,0 +1,13 @@
+[1mdiff --git a/AddaLauncher/src/main/java/com/adda/launcher/ui/screens/content/SettingsScreen.kt b/AddaLauncher/src/main/java/com/adda/launcher/ui/screens/content/SettingsScreen.kt[m
+[1mindex cd89cb1..6c8cdd1 100644[m
+[1m--- a/AddaLauncher/src/main/java/com/adda/launcher/ui/screens/content/SettingsScreen.kt[m
+[1m+++ b/AddaLauncher/src/main/java/com/adda/launcher/ui/screens/content/SettingsScreen.kt[m
+[36m@@ -121,7 +121,7 @@[m [mprivate val settingItems = listOf([m
+     CategoryItem(NormalNavKey.Settings.Launcher, { CategoryIcon(R.drawable.ic_setting_launcher, R.string.settings_tab_launcher) }, R.string.settings_tab_launcher),[m
+     CategoryItem(NormalNavKey.Settings.JavaManager, { CategoryIcon(R.drawable.ic_java, R.string.settings_tab_java_manage) }, R.string.settings_tab_java_manage, division = true),[m
+     CategoryItem(NormalNavKey.Settings.ControlManager, { CategoryIcon(R.drawable.ic_videogame_asset_outlined, R.string.settings_tab_control_manage) }, R.string.settings_tab_control_manage),[m
+[31m-    // CategoryItem(NormalNavKey.Settings.AboutInfo, { CategoryIcon(R.drawable.ic_info_outlined, R.string.settings_tab_info_about) }, R.string.settings_tab_info_about, division = true)[m
+[32m+[m[32m    // // CategoryItem(NormalNavKey.Settings.AboutInfo, { CategoryIcon(R.drawable.ic_info_outlined, R.string.settings_tab_info_about) }, R.string.settings_tab_info_about, division = true)[m
+ )[m
+ [m
+ @Composable[m
