@@ -331,18 +331,21 @@ object AllSettings : SettingsRegistry() {
     //Launcher
     /**
      * 颜色主题色
-     * Android 12+ 默认动态主题色
+     * Adda Launcher ships with a purple brand color by default (CUSTOM),
+     * rather than following Zalith's Android 12+ dynamic/EMBERMIRE default,
+     * so the signature purple/black identity shows out of the box on every
+     * device. Users can still switch to DYNAMIC or any preset in Settings.
      */
     val launcherColorTheme = enumSetting(
         "launcherColorTheme",
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) ColorThemeType.DYNAMIC
-        else ColorThemeType.EMBERMIRE
+        ColorThemeType.CUSTOM
     )
 
     /**
      * 自定义颜色主题色
+     * Adda Launcher brand purple: #7A3CFF
      */
-    val launcherCustomColor = intSetting("launcherCustomColor", Color.Blue.toArgb())
+    val launcherCustomColor = intSetting("launcherCustomColor", Color(0xFF7A3CFF).toArgb())
 
     /**
      * 自定义颜色配色风格
