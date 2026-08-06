@@ -409,12 +409,12 @@
     <string name="adda_loading_memory">RAM: %1$d / %2$d MB</string>
     <string-array name="adda_loading_tips">
         <item>Tip: You can rebind your controls in Settings → Controls.</item>
-        <item>Tip: Lower render distance if you're on a 3–4GB RAM device.</item>
+        <item>Tip: Lower render distance if you are on a 3–4GB RAM device.</item>
         <item>Tip: Fabric and Quilt mods are not interchangeable — check compatibility first.</item>
         <item>Tip: Back up your world before installing new mods.</item>
         <item>Tip: You can switch accounts anytime from the Accounts page.</item>
         <item>Tip: Shaders hit performance hard on mobile — test with a light one first.</item>
-        <item>Tip: Resource packs load faster if they're zipped, not left as folders.</item>
+        <item>Tip: Resource packs load faster when zipped, not left as folders.</item>
         <item>Tip: Adda Launcher keeps your worlds backed up — check the Worlds tab.</item>
     </string-array>
     <string name="game_menu_title">Game Menu</string>
