@@ -234,9 +234,6 @@ private fun NavigationUI(
                 }
                 entry<NormalNavKey.Settings.ControlManager> {
                     ControlManageScreen(key, settingsScreenKey, mainScreenKey, eventViewModel, submitError)
-                }
-                entry<NormalNavKey.Settings.AboutInfo> {
-                    AboutInfoScreen(
                         key = key,
                         settingsScreenKey = settingsScreenKey,
                         mainScreenKey = mainScreenKey,
