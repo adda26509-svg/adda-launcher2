@@ -131,6 +131,11 @@ import com.adda.launcher.ui.screens.game.multiplayer.TerracottaOperation
 import com.adda.launcher.ui.screens.game.multiplayer.rememberTerracottaViewModel
 import com.adda.launcher.ui.screens.main.control_editor.ControlEditor
 import com.adda.launcher.utils.logging.Logger
+import androidx.compose.animation.Crossfade
+import androidx.compose.ui.res.stringArrayResource
+import com.adda.launcher.utils.platform.bytesToMB
+import com.adda.launcher.utils.platform.getTotalMemory
+import com.adda.launcher.utils.platform.getUsedMemory
 import com.adda.launcher.utils.string.getMessageOrToString
 import com.adda.launcher.viewmodel.EditorViewModel
 import com.adda.launcher.viewmodel.ErrorViewModel
@@ -865,6 +870,34 @@ private fun GameInfoBox(
     onClose: () -> Unit,
     modifier: Modifier = Modifier,
 ) {
+    val context = LocalContext.current
+
+    //Adda Launcher: rotate a random loading tip every few seconds
+    val tips = stringArrayResource(R.array.adda_loading_tips)
+    var tipIndex by remember { mutableIntStateOf(0) }
+    LaunchedEffect(visible, tips) {
+        if (!visible || tips.isEmpty()) return@LaunchedEffect
+        tipIndex = tips.indices.random()
+        while (true) {
+            delay(4000)
+            tipIndex = (tipIndex + 1) % tips.size
+        }
+    }
+
+    //Adda Launcher: live RAM usage while the game is loading
+    var usedMemoryMb by remember { mutableStateOf<Double?>(null) }
+    var totalMemoryMb by remember { mutableStateOf<Double?>(null) }
+    LaunchedEffect(visible) {
+        if (!visible) return@LaunchedEffect
+        while (true) {
+            withContext(Dispatchers.IO) {
+                usedMemoryMb = getUsedMemory(context).bytesToMB(decimals = 0)
+                totalMemoryMb = getTotalMemory(context).bytesToMB(decimals = 0)
+            }
+            delay(2000)
+        }
+    }
+
     AnimatedVisibility(
         visible = visible,
         enter = fadeIn(),
@@ -906,6 +939,28 @@ private fun GameInfoBox(
                                 text = stringResource(R.string.game_loading_version_info, info),
                                 style = MaterialTheme.typography.labelLarge
                             )
+                        }
+                        if (usedMemoryMb != null && totalMemoryMb != null) {
+                            Text(
+                                text = stringResource(
+                                    R.string.adda_loading_memory,
+                                    usedMemoryMb!!.toInt(),
+                                    totalMemoryMb!!.toInt()
+                                ),
+                                style = MaterialTheme.typography.labelLarge
+                            )
+                        }
+                        if (tips.isNotEmpty()) {
+                            Crossfade(
+                                targetState = tipIndex,
+                                label = "AddaLoadingTip"
+                            ) { index ->
+                                Text(
+                                    text = tips.getOrElse(index) { "" },
+                                    style = MaterialTheme.typography.labelMedium,
+                                    color = MaterialTheme.colorScheme.primary
+                                )
+                            }
                         }
                     }
                 }
