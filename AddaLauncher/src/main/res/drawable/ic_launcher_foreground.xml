@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Adda Launcher original monogram: an "A" formed from two strokes
+     with a red crossbar, on a transparent field for the adaptive icon
+     foreground layer. Original artwork, not derived from any other
+     launcher's mark. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:pathData="M54,24 L34,74"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M54,24 L74,74"
+        android:strokeColor="#F5F5F5"
+        android:strokeWidth="9"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:fillColor="#00000000"/>
+    <path
+        android:pathData="M40,58 L68,58"
+        android:strokeColor="#E53935"
+        android:strokeWidth="9"
+        android:strokeLineCap="round"
+        android:fillColor="#00000000"/>
+</vector>
