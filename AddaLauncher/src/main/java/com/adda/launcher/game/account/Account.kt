@@ -16,29 +16,25 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account
+package com.movtery.zalithlauncher.game.account
 
-import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.adda.launcher.game.account.wardrobe.CapeFileDownloader
-import com.adda.launcher.game.account.wardrobe.SkinFileDownloader
-import com.adda.launcher.game.account.wardrobe.SkinModelType
-import com.adda.launcher.game.account.wardrobe.getLocalUUIDWithSkinModel
-import com.adda.launcher.path.PathManager
-import com.adda.launcher.utils.logging.Logger
+import com.movtery.zalithlauncher.game.account.wardrobe.CapeFileDownloader
+import com.movtery.zalithlauncher.game.account.wardrobe.SkinFileDownloader
+import com.movtery.zalithlauncher.game.account.wardrobe.SkinModelType
+import com.movtery.zalithlauncher.game.account.wardrobe.getLocalUUIDWithSkinModel
+import com.movtery.zalithlauncher.path.PathManager
+import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.withContext
-import kotlinx.parcelize.Parcelize
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util.UUID
 
-private const val TAG = "Account"
-
-@Parcelize
 @Entity(tableName = "accounts")
 data class Account(
     /**
@@ -58,16 +54,13 @@ data class Account(
     var otherPassword: String? = null,
     var accountType: String? = null,
     var skinModelType: SkinModelType = SkinModelType.NONE
-): Parcelable {
+) {
     val hasSkinFile: Boolean
         get() = getSkinFile().exists()
 
     fun getSkinFile() = File(PathManager.DIR_ACCOUNT_SKIN, "$uniqueUUID.png")
 
     fun getCapeFile() = File(PathManager.DIR_ACCOUNT_CAPE, "$uniqueUUID.png")
-
-    private fun getTempSkinFile() = File(PathManager.DIR_CACHE, "account_skin_${uniqueUUID}.tmp.png")
-    private fun getTempCapeFile() = File(PathManager.DIR_CACHE, "account_cape_${uniqueUUID}.tmp.png")
 
     /**
      * 下载并更新账号的皮肤文件
@@ -79,44 +72,42 @@ data class Account(
             else -> null
         }
         baseUrl?.let { url ->
-            val skinJob = async { updateSkin(url) }
-            val capeJob = async { updateCape(url) }
-            joinAll(skinJob, capeJob)
-            AccountsManager.refreshWardrobe()
+            listOf(
+                async {
+                    updateSkin(url)
+                },
+                async {
+                    updateCape(url)
+                }
+            ).joinAll()
         }
     }
 
     private suspend fun updateSkin(url: String) {
-        val targetFile = getSkinFile()
-        val tempFile = getTempSkinFile()
+        val skinFile = getSkinFile()
+        if (skinFile.exists()) FileUtils.deleteQuietly(skinFile) //清除一次皮肤文件
 
         runCatching {
-            FileUtils.deleteQuietly(tempFile)
-            SkinFileDownloader().download(url, tempFile, profileId) { modelType ->
+            SkinFileDownloader().download(url, skinFile, profileId) { modelType ->
                 this.skinModelType = modelType
             }
-            if (targetFile.exists()) FileUtils.deleteQuietly(targetFile)
-            FileUtils.moveFile(tempFile, targetFile)
-            Logger.info(TAG, "Update skin success")
+            lInfo("Update skin success")
         }.onFailure { e ->
-            Logger.error(TAG, "Could not update skin", e)
-            FileUtils.deleteQuietly(tempFile)
+            lError("Could not update skin", e)
         }
+        AccountsManager.refreshWardrobe()
     }
 
     private suspend fun updateCape(url: String) {
-        val targetFile = getCapeFile()
-        val tempFile = getTempCapeFile()
+        val capeFile = getCapeFile()
+        if (capeFile.exists()) FileUtils.deleteQuietly(capeFile) //清除一次披风文件
 
         runCatching {
-            FileUtils.deleteQuietly(tempFile)
-            CapeFileDownloader().download(url, tempFile, profileId)
-            if (targetFile.exists()) FileUtils.deleteQuietly(targetFile)
-            FileUtils.moveFile(tempFile, targetFile)
-            Logger.info(TAG, "Update cape success")
+            CapeFileDownloader().download(url, capeFile, profileId)
+            lInfo("Update cape success")
         }.onFailure { e ->
-            Logger.error(TAG, "Could not update cape", e)
-            FileUtils.deleteQuietly(tempFile)
+            lError("Could not update cape", e)
         }
+        AccountsManager.refreshWardrobe()
     }
 }

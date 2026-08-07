@@ -16,12 +16,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account.wardrobe
+package com.movtery.zalithlauncher.game.account.wardrobe
 
-import com.adda.launcher.utils.logging.Logger
+import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
 import java.io.File
-
-private const val TAG = "SkinFileDownloader"
 
 class SkinFileDownloader: WardrobeDownloader() {
     /**
@@ -47,7 +45,7 @@ class SkinFileDownloader: WardrobeDownloader() {
                 SkinModelType.ALEX
             } ?: SkinModelType.STEVE
         }.getOrElse {
-            Logger.warning(TAG, "Can not get skin model type.")
+            lWarning("Can not get skin model type.")
             SkinModelType.NONE
         }
 

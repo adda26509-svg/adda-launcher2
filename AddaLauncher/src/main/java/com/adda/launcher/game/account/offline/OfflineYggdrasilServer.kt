@@ -16,12 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account.offline
+package com.movtery.zalithlauncher.game.account.offline
 
-import com.adda.launcher.BuildKeys
-import com.adda.launcher.game.account.Account
-import com.adda.launcher.game.account.wardrobe.SkinModelType
-import com.adda.launcher.utils.logging.Logger
+import com.movtery.zalithlauncher.game.account.Account
+import com.movtery.zalithlauncher.game.account.wardrobe.SkinModelType
+import com.movtery.zalithlauncher.info.InfoDistributor
+import com.movtery.zalithlauncher.utils.logging.Logger.lDebug
+import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json
@@ -58,16 +60,14 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.TimeUnit
 
-private const val TAG = "OfflineYggdrasil"
-
 /**
  * 离线账号 Yggdrasil 服务器，用于本地加载玩家皮肤、披风
  * [Reference from HMCL](https://github.com/HMCL-dev/HMCL/blob/15e490f/HMCLCore/src/main/java/org/jackhuang/hmcl/auth/offline/YggdrasilServer.java)
  */
 class OfflineYggdrasilServer(
     private val port: Int = 0,
-    val serverName: String = "${BuildKeys.LAUNCHER_IDENTIFIER}_Offline",
-    val implementationName: String = BuildKeys.LAUNCHER_SHORT_NAME,
+    val serverName: String = "${InfoDistributor.LAUNCHER_IDENTIFIER}_Offline",
+    val implementationName: String = InfoDistributor.LAUNCHER_SHORT_NAME,
     val implementationVersion: String = "1.0"
 ) {
     private val charactersByUuid = ConcurrentHashMap<String, Character>()
@@ -98,7 +98,7 @@ class OfflineYggdrasilServer(
                     runCatching {
                         block()
                     }.onFailure { e ->
-                        Logger.error(TAG, "Internal server error", e)
+                        lError("Internal server error", e)
                     }
                 }
 
@@ -184,7 +184,7 @@ class OfflineYggdrasilServer(
         charactersByUuid[character.uuid.lowercase()] = character
         charactersByName[character.name.lowercase()] = character
 
-        Logger.info(TAG, "Added character ${character.name} (${character.uuid}), skin hash = ${character.skin?.skinHash}")
+        lInfo("Added character ${character.name} (${character.uuid}), skin hash = ${character.skin?.skinHash}")
     }
 
 
@@ -232,14 +232,14 @@ class OfflineYggdrasilServer(
         val username = call.request.queryParameters["username"] ?: return buildJsonObject {
             put("error", JsonPrimitive("Missing username"))
         }.toString()
-        Logger.debug(TAG, "Try find profile with username $username")
+        lDebug("Try find profile with username $username")
 
         val character = charactersByName[username.lowercase()] ?: return buildJsonObject { }.toString().also {
-            Logger.debug(TAG, "Profile with username $username not found")
+            lDebug("Profile with username $username not found")
         }
 
         return character.toCompleteResponse("http://localhost:${getPort()}", this::sign).also {
-            Logger.debug(TAG, "Found profile with username $username")
+            lDebug("Found profile with username $username")
         }
     }
 
@@ -247,20 +247,20 @@ class OfflineYggdrasilServer(
         val uuid = call.parameters["uuid"] ?: return buildJsonObject {
             put("error", JsonPrimitive("Missing uuid"))
         }.toString()
-        Logger.debug(TAG, "Try find profile with uuid $uuid")
+        lDebug("Try find profile with uuid $uuid")
 
         val character = charactersByUuid[uuid.lowercase()] ?: return buildJsonObject { }.toString().also {
-            Logger.debug(TAG, "Profile with uuid $uuid not found")
+            lDebug("Profile with uuid $uuid not found")
         }
 
         return character.toCompleteResponse("http://localhost:${getPort()}", this::sign).also {
-            Logger.debug(TAG, "Found profile with uuid $uuid")
+            lDebug("Found profile with uuid $uuid")
         }
     }
 
     private suspend fun texture(call: ApplicationCall) {
         val hash = call.parameters["hash"] ?: return call.respond(HttpStatusCode.NotFound)
-        Logger.debug(TAG, "Try find skin with hash $hash")
+        lDebug("Try find skin with hash $hash")
 
         // 查找对应hash的皮肤或披风
         val match = charactersByUuid.values
@@ -273,12 +273,12 @@ class OfflineYggdrasilServer(
             }
 
         if (match != null) {
-            Logger.debug(TAG, "Skin with hash $hash found")
+            lDebug("Skin with hash $hash found")
             call.response.header("Cache-Control", "max-age=2592000, public")
             call.response.header("Etag", "\"$hash\"")
             call.respondBytes(match, ContentType.Image.PNG)
         } else {
-            Logger.debug(TAG, "Skin with hash $hash not found")
+            lDebug("Skin with hash $hash not found")
             call.respond(HttpStatusCode.NotFound)
         }
     }

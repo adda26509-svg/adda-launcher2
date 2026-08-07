@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account.auth_server
+package com.movtery.zalithlauncher.game.account.auth_server
 
 class ResponseException(val responseMessage: String) : RuntimeException(
     responseMessage

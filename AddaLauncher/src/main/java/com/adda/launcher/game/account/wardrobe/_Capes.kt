@@ -16,11 +16,11 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account.wardrobe
+package com.movtery.zalithlauncher.game.account.wardrobe
 
 import androidx.annotation.StringRes
-import com.adda.launcher.R
-import com.adda.launcher.game.account.yggdrasil.PlayerProfile
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.game.account.yggdrasil.PlayerProfile
 
 /**
  * 空披风，可用来表示不选择、重置披风
@@ -62,8 +62,6 @@ fun PlayerProfile.Cape.capeLocalRes(): Int? {
         "Founder's" -> R.string.cape_name_founder_s
         "Copper" -> R.string.cape_name_copper
         "Zombie Horse" -> R.string.cape_name_zombie_horse
-        "Builder" -> R.string.cape_name_builder
-        "Crafter" -> R.string.cape_name_crafter
         else -> null
     }
 

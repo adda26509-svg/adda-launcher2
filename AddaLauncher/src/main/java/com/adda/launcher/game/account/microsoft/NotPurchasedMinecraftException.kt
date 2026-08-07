@@ -16,10 +16,10 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account.microsoft
+package com.movtery.zalithlauncher.game.account.microsoft
 
 import android.content.Context
-import com.adda.launcher.R
+import com.movtery.zalithlauncher.R
 
 class NotPurchasedMinecraftException : RuntimeException()
 

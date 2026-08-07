@@ -16,35 +16,35 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account
+package com.movtery.zalithlauncher.game.account
 
 import android.content.Context
 import android.widget.Toast
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
-import com.adda.launcher.R
-import com.adda.launcher.context.COPY_LABEL_DEVICE_CODE
-import com.adda.launcher.coroutine.Task
-import com.adda.launcher.coroutine.TaskSystem
-import com.adda.launcher.game.account.auth_server.AuthServerHelper
-import com.adda.launcher.game.account.auth_server.data.AuthServer
-import com.adda.launcher.game.account.auth_server.getAuthServeInfo
-import com.adda.launcher.game.account.microsoft.AsyncStatus
-import com.adda.launcher.game.account.microsoft.AuthType
-import com.adda.launcher.game.account.microsoft.MinecraftProfileException
-import com.adda.launcher.game.account.microsoft.NotPurchasedMinecraftException
-import com.adda.launcher.game.account.microsoft.XboxLoginException
-import com.adda.launcher.game.account.microsoft.fetchDeviceCodeResponse
-import com.adda.launcher.game.account.microsoft.getTokenResponse
-import com.adda.launcher.game.account.microsoft.microsoftAuthAsync
-import com.adda.launcher.game.account.microsoft.toLocal
-import com.adda.launcher.ui.screens.content.elements.MicrosoftLoginOperation
-import com.adda.launcher.utils.copyText
-import com.adda.launcher.utils.logging.Logger
-import com.adda.launcher.utils.network.toLocal
-import com.adda.launcher.viewmodel.ErrorViewModel
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.context.COPY_LABEL_DEVICE_CODE
+import com.movtery.zalithlauncher.coroutine.Task
+import com.movtery.zalithlauncher.coroutine.TaskSystem
+import com.movtery.zalithlauncher.game.account.auth_server.AuthServerHelper
+import com.movtery.zalithlauncher.game.account.auth_server.data.AuthServer
+import com.movtery.zalithlauncher.game.account.auth_server.getAuthServeInfo
+import com.movtery.zalithlauncher.game.account.microsoft.AsyncStatus
+import com.movtery.zalithlauncher.game.account.microsoft.AuthType
+import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException
+import com.movtery.zalithlauncher.game.account.microsoft.NotPurchasedMinecraftException
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException
+import com.movtery.zalithlauncher.game.account.microsoft.fetchDeviceCodeResponse
+import com.movtery.zalithlauncher.game.account.microsoft.getTokenResponse
+import com.movtery.zalithlauncher.game.account.microsoft.microsoftAuthAsync
+import com.movtery.zalithlauncher.game.account.microsoft.toLocal
+import com.movtery.zalithlauncher.ui.screens.content.elements.MicrosoftLoginOperation
+import com.movtery.zalithlauncher.utils.copyText
+import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.movtery.zalithlauncher.viewmodel.ErrorViewModel
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import io.ktor.client.plugins.ResponseException
+import io.ktor.http.HttpStatusCode
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
@@ -59,8 +59,6 @@ import java.util.Locale
 import java.util.Objects
 import java.util.UUID
 import kotlin.coroutines.CoroutineContext
-
-private const val TAG = "AccountUtils"
 
 fun Account.isAuthServerAccount(): Boolean {
     return !isLocalAccount() && !Objects.isNull(otherBaseUrl) && otherBaseUrl != "0"
@@ -154,7 +152,15 @@ fun microsoftLogin(
                 is XboxLoginException -> th.toLocal(context)
                 is UnknownHostException, is UnresolvedAddressException -> context.getString(R.string.error_network_unreachable)
                 is ConnectException -> context.getString(R.string.error_connection_failed)
-                is ResponseException -> th.toLocal(context)
+                is ResponseException -> {
+                    val statusCode = th.response.status
+                    val res = when (statusCode) {
+                        HttpStatusCode.Unauthorized -> R.string.error_unauthorized
+                        HttpStatusCode.NotFound -> R.string.error_notfound
+                        else -> R.string.error_client_error
+                    }
+                    context.getString(res, statusCode)
+                }
                 is CancellationException -> { null }
                 else -> {
                     val errorMessage = th.localizedMessage ?: th.message ?: th::class.qualifiedName ?: "Unknown error"
@@ -323,7 +329,7 @@ fun addOtherServer(
             runCatching {
                 getAuthServeInfo(fullServerUrl)
             }.onFailure { th ->
-                Logger.error(TAG, "Failed to get server info", th)
+                lError("Failed to get server info", th)
                 onThrowable(th)
             }.getOrNull()?.let { data ->
                 JSONObject(data).optJSONObject("meta")?.let { meta ->
@@ -346,7 +352,7 @@ fun addOtherServer(
         },
         onError = { e ->
             onThrowable(e)
-            Logger.error(TAG, "Failed to add auth server", e)
+            lError("Failed to add auth server", e)
         }
     )
 
@@ -403,7 +409,7 @@ fun tryGetFullServerUrl(baseUrl: String): String {
             conn?.disconnect()
         }
     }.getOrElse { e ->
-        Logger.error(TAG, "Failed to get full server url", e)
+        lError("Failed to get full server url", e)
         initialUrl
     }
 }

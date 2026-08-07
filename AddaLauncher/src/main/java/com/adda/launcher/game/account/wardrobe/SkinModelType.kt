@@ -16,20 +16,12 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account.wardrobe
-
-import android.os.Parcelable
-import kotlinx.parcelize.Parcelize
+package com.movtery.zalithlauncher.game.account.wardrobe
 
 /**
  * 皮肤模型枚举
  */
-@Parcelize
-enum class SkinModelType(
-    val string: String,
-    val targetParity: Int,
-    val modelType: String
-): Parcelable {
+enum class SkinModelType(val string: String, val targetParity: Int, val modelType: String) {
     /** 未设定 */
     NONE("none", -1, ""),
     /** 粗臂类型 */

@@ -16,18 +16,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account.yggdrasil
+package com.movtery.zalithlauncher.game.account.yggdrasil
 
-import com.adda.launcher.game.account.microsoft.MinecraftProfileException
-import com.adda.launcher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.FREQUENT
-import com.adda.launcher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.PROFILE_NOT_EXISTS
-import com.adda.launcher.game.account.wardrobe.SkinModelType
-import com.adda.launcher.path.GLOBAL_CLIENT
-import com.adda.launcher.path.PathManager
-import com.adda.launcher.utils.logging.Logger
-import com.adda.launcher.utils.network.downloadFileSuspend
-import com.adda.launcher.utils.network.safeBodyAsJson
-import com.adda.launcher.utils.network.withRetry
+import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException
+import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.FREQUENT
+import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.PROFILE_NOT_EXISTS
+import com.movtery.zalithlauncher.game.account.wardrobe.SkinModelType
+import com.movtery.zalithlauncher.path.GLOBAL_CLIENT
+import com.movtery.zalithlauncher.path.PathManager
+import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
+import com.movtery.zalithlauncher.utils.network.downloadFileSuspend
+import com.movtery.zalithlauncher.utils.network.safeBodyAsJson
+import com.movtery.zalithlauncher.utils.network.withRetry
 import io.ktor.client.plugins.ResponseException
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitFormWithBinaryData
@@ -54,8 +54,6 @@ import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util.concurrent.TimeUnit
 
-private const val TAG = "YggdrasilApi"
-
 /**
  * 使用 Yggdrasil 上传皮肤
  */
@@ -69,7 +67,7 @@ suspend fun uploadSkin(
     val skinData = file.readBytes()
     val logTag = "YggdrasilApi.uploadSkin"
 
-    Logger.info(TAG, "$logTag: uploading skin -> ${file.name}")
+    lInfo("$logTag: uploading skin -> ${file.name}")
     withRetry(logTag = logTag, maxRetries = maxRetries) {
         GLOBAL_CLIENT.submitFormWithBinaryData(
             url = "$apiUrl/minecraft/profile/skins",
@@ -103,7 +101,7 @@ suspend fun changeCape(
 
     if (capeId.isBlank()) {
         //重置玩家选择的披风
-        Logger.info(TAG, "$logTag: reset cape")
+        lInfo("$logTag: reset cape")
         withRetry(logTag = logTag, maxRetries = maxRetries) {
             GLOBAL_CLIENT.request(url) {
                 method = HttpMethod.Delete
@@ -114,7 +112,7 @@ suspend fun changeCape(
             }
         }
     } else {
-        Logger.info(TAG, "$logTag: capeId -> $capeId")
+        lInfo("$logTag: capeId -> $capeId")
         withRetry(logTag = logTag, maxRetries = maxRetries) {
             GLOBAL_CLIENT.request(url) {
                 method = HttpMethod.Put

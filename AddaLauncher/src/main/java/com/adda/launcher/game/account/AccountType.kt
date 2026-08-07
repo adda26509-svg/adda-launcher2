@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account
+package com.movtery.zalithlauncher.game.account
 
 enum class AccountType(val tag: String) {
     MICROSOFT("Microsoft"), LOCAL("Local")

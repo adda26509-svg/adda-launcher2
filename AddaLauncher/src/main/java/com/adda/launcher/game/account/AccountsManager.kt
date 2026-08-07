@@ -16,20 +16,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account
+package com.movtery.zalithlauncher.game.account
 
 import android.content.Context
-import com.adda.launcher.R
-import com.adda.launcher.coroutine.Task
-import com.adda.launcher.coroutine.TaskSystem
-import com.adda.launcher.database.AppDatabase
-import com.adda.launcher.game.account.auth_server.data.AuthServer
-import com.adda.launcher.game.account.auth_server.data.AuthServerDao
-import com.adda.launcher.path.PathManager
-import com.adda.launcher.setting.AllSettings
-import com.adda.launcher.utils.isInGreaterChina
-import com.adda.launcher.utils.logging.Logger
-import com.adda.launcher.utils.network.isNetworkAvailable
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.coroutine.Task
+import com.movtery.zalithlauncher.coroutine.TaskSystem
+import com.movtery.zalithlauncher.database.AppDatabase
+import com.movtery.zalithlauncher.game.account.auth_server.data.AuthServer
+import com.movtery.zalithlauncher.game.account.auth_server.data.AuthServerDao
+import com.movtery.zalithlauncher.path.PathManager
+import com.movtery.zalithlauncher.setting.AllSettings
+import com.movtery.zalithlauncher.utils.isInGreaterChina
+import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
+import com.movtery.zalithlauncher.utils.network.isNetworkAvailable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,8 +40,6 @@ import kotlinx.coroutines.launch
 import org.apache.commons.io.FileUtils
 import java.io.File
 import java.util.concurrent.CopyOnWriteArrayList
-
-private const val TAG = "AccountManager"
 
 object AccountsManager {
     private val scope = CoroutineScope(Dispatchers.IO)
@@ -111,7 +110,7 @@ object AccountsManager {
 
         refreshCurrentAccountState()
 
-        Logger.info(TAG, "Loaded ${_accounts.size} accounts")
+        lInfo("Loaded ${_accounts.size} accounts")
     }
 
     /**
@@ -126,7 +125,7 @@ object AccountsManager {
             _authServers.sortWith { o1, o2 -> o1.serverName.compareTo(o2.serverName) }
             _authServersFlow.value = _authServers.toList()
 
-            Logger.info(TAG, "Loaded ${_authServers.size} auth servers")
+            lInfo("Loaded ${_authServers.size} auth servers")
         }
     }
 
@@ -240,11 +239,11 @@ object AccountsManager {
     suspend fun suspendSaveAccount(account: Account) {
         runCatching {
             accountDao.saveAccount(account)
-            Logger.info(TAG, "Saved account: ${account.username}")
+            lInfo("Saved account: ${account.username}")
             //同时设置当前账号
             setCurrentAccountInternal(account)
         }.onFailure { e ->
-            Logger.error(TAG, "Failed to save account: ${account.username}", e)
+            lError("Failed to save account: ${account.username}", e)
         }
         suspendReloadAccounts()
     }
@@ -267,9 +266,9 @@ object AccountsManager {
     suspend fun saveAuthServer(server: AuthServer) {
         runCatching {
             authServerDao.saveServer(server)
-            Logger.info(TAG, "Saved auth server: ${server.serverName} -> ${server.baseUrl}")
+            lInfo("Saved auth server: ${server.serverName} -> ${server.baseUrl}")
         }.onFailure { e ->
-            Logger.error(TAG, "Failed to save auth server: ${server.serverName}", e)
+            lError("Failed to save auth server: ${server.serverName}", e)
         }
         reloadAuthServers()
     }

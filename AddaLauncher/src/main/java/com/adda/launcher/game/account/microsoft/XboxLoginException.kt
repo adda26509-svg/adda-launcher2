@@ -16,18 +16,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.adda.launcher.game.account.microsoft
+package com.movtery.zalithlauncher.game.account.microsoft
 
 import android.content.Context
-import com.adda.launcher.R
-import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.BANNED
-import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.BLOCKED_REGION
-import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.NOT_ACCEPTED_SERVICE
-import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.REACHED_PLAYTIME_LIMIT
-import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.REQUIRES_PROOF_OF_AGE
-import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.RESTRICTED
-import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.UNDERAGE
-import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.UNREGISTERED
+import com.movtery.zalithlauncher.R
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.BANNED
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.BLOCKED_REGION
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.NOT_ACCEPTED_SERVICE
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.REACHED_PLAYTIME_LIMIT
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.REQUIRES_PROOF_OF_AGE
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.RESTRICTED
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.UNDERAGE
+import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.UNREGISTERED
 
 /**
  * Xbox 登陆出现的各种异常
