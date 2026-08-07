@@ -71,7 +71,7 @@ abstract class WardrobeDownloader {
                     }
                 }
             } catch (e: Exception) {
-                Logger.lError("Failed to download skin file", e)
+                lError("Failed to download skin file", e)
             }
         }
     }

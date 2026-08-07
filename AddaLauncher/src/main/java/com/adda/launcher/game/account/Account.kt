@@ -18,8 +18,10 @@
 
 package com.adda.launcher.game.account
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 import com.adda.launcher.game.account.wardrobe.CapeFileDownloader
 import com.adda.launcher.game.account.wardrobe.SkinFileDownloader
 import com.adda.launcher.game.account.wardrobe.SkinModelType
@@ -36,6 +38,7 @@ import java.io.File
 import java.util.UUID
 
 @Entity(tableName = "accounts")
+@Parcelize
 data class Account(
     /**
      * 唯一 UUID，标识该账号
@@ -54,7 +57,7 @@ data class Account(
     var otherPassword: String? = null,
     var accountType: String? = null,
     var skinModelType: SkinModelType = SkinModelType.NONE
-) {
+) : Parcelable {
     val hasSkinFile: Boolean
         get() = getSkinFile().exists()
 
