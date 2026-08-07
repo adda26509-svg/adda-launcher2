@@ -1,8 +1,8 @@
 package com.adda.launcher.utils.logging
 
-private fun Any.tagName(): String = this::class.simpleName ?: "Unknown"
+private const val DEFAULT_TAG = "AppLog"
 
-fun Any.lError(msg: String, t: Throwable? = null) = Logger.error(tagName(), msg, t)
-fun Any.lWarning(msg: String, t: Throwable? = null) = Logger.warning(tagName(), msg, t)
-fun Any.lInfo(msg: String, t: Throwable? = null) = Logger.info(tagName(), msg, t)
-fun Any.lDebug(msg: String, t: Throwable? = null) = Logger.debug(tagName(), msg, t)
+fun lError(msg: String, t: Throwable? = null) = Logger.error(DEFAULT_TAG, msg, t)
+fun lWarning(msg: String, t: Throwable? = null) = Logger.warning(DEFAULT_TAG, msg, t)
+fun lInfo(msg: String, t: Throwable? = null) = Logger.info(DEFAULT_TAG, msg, t)
+fun lDebug(msg: String, t: Throwable? = null) = Logger.debug(DEFAULT_TAG, msg, t)
