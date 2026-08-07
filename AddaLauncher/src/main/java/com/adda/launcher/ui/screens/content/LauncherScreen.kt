@@ -99,6 +99,9 @@ fun LauncherScreen(
     onLaunchGame: (Version?) -> Unit,
     onOpenLink: (String) -> Unit,
     onHomePageEvent: (MarkdownBlock.Button.Event) -> Unit,
+    toDownloadScreen: () -> Unit = {},
+    toMultiplayerScreen: () -> Unit = {},
+    toSettingsScreen: () -> Unit = {},
 ) {
     BaseScreen(
         screenKey = NormalNavKey.LauncherMain,
@@ -147,7 +150,10 @@ fun LauncherScreen(
                 onLaunchGame = onLaunchGame,
                 toAccountManageScreen = toAccountManageScreen,
                 toVersionManageScreen = toVersionManageScreen,
-                toVersionSettingsScreen = toVersionSettingsScreen
+                toVersionSettingsScreen = toVersionSettingsScreen,
+                toDownloadScreen = toDownloadScreen,
+                toMultiplayerScreen = toMultiplayerScreen,
+                toSettingsScreen = toSettingsScreen
             )
         }
     }
@@ -178,30 +184,25 @@ private fun ContentMenu(
         if (BuildConfig.DEBUG) {
             item {
                 //debug版本关不掉的警告，防止有人把测试版当正式版用 XD
-                BackgroundCard(
-                    shape = MaterialTheme.shapes.extraLarge,
-                    modifier = Modifier.padding(bottom = 12.dp)
+                com.adda.launcher.ui.components.WarningCard(
+                    title = stringResource(R.string.generic_warning),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(bottom = 12.dp),
+                    containerColor = MaterialTheme.colorScheme.primaryContainer,
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
                 ) {
-                    Column(
-                        modifier = Modifier.padding(horizontal = 16.dp, vertical = 12.dp),
-                        verticalArrangement = Arrangement.spacedBy(8.dp)
-                    ) {
-                        Text(
-                            text = stringResource(R.string.generic_warning),
-                            style = MaterialTheme.typography.titleMedium
-                        )
-                        Text(
-                            text = stringResource(R.string.launcher_version_debug_warning, BuildKeys.LAUNCHER_NAME),
-                            style = MaterialTheme.typography.bodyMedium
-                        )
-                        Text(
-                            modifier = Modifier
-                                .alpha(0.8f)
-                                .align(Alignment.End),
-                            text = stringResource(R.string.launcher_version_debug_warning_cant_close),
-                            style = MaterialTheme.typography.bodySmall
-                        )
-                    }
+                    Text(
+                        text = stringResource(R.string.launcher_version_debug_warning, BuildKeys.LAUNCHER_NAME),
+                        style = MaterialTheme.typography.bodyMedium
+                    )
+                    Text(
+                        modifier = Modifier
+                            .alpha(0.8f)
+                            .align(Alignment.End),
+                        text = stringResource(R.string.launcher_version_debug_warning_cant_close),
+                        style = MaterialTheme.typography.bodySmall
+                    )
                 }
             }
         }
@@ -248,6 +249,9 @@ private fun RightMenuContent(
     toAccountManageScreen: () -> Unit,
     toVersionManageScreen: () -> Unit,
     toVersionSettingsScreen: () -> Unit,
+    toDownloadScreen: () -> Unit,
+    toMultiplayerScreen: () -> Unit,
+    toSettingsScreen: () -> Unit,
     launchButton: @Composable (
         innerModifier: Modifier,
         onClick: () -> Unit,
@@ -261,18 +265,31 @@ private fun RightMenuContent(
     ConstraintLayout(
         modifier = modifier
     ) {
-        val (accountAvatar, versionManagerLayout, launchButton) = createRefs()
+        val (accountAvatar, quickActions, versionManagerLayout, launchButton) = createRefs()
 
         AccountAvatar(
             modifier = Modifier
                 .constrainAs(accountAvatar) {
                     top.linkTo(parent.top)
-                    bottom.linkTo(launchButton.top, margin = 32.dp)
+                    bottom.linkTo(quickActions.top, margin = 16.dp)
                     start.linkTo(parent.start)
                     end.linkTo(parent.end)
                 },
             account = account,
             onClick = toAccountManageScreen
+        )
+
+        QuickActionsGrid(
+            modifier = Modifier
+                .constrainAs(quickActions) {
+                    start.linkTo(parent.start)
+                    end.linkTo(parent.end)
+                    bottom.linkTo(versionManagerLayout.top, margin = 8.dp)
+                }
+                .padding(horizontal = 8.dp),
+            onDownloadsClick = toDownloadScreen,
+            onMultiplayerClick = toMultiplayerScreen,
+            onSettingsClick = toSettingsScreen
         )
 
         var showList by remember { mutableStateOf(false) }
@@ -393,7 +410,10 @@ private fun RightMenu(
     modifier: Modifier = Modifier,
     toAccountManageScreen: () -> Unit = {},
     toVersionManageScreen: () -> Unit = {},
-    toVersionSettingsScreen: () -> Unit = {}
+    toVersionSettingsScreen: () -> Unit = {},
+    toDownloadScreen: () -> Unit = {},
+    toMultiplayerScreen: () -> Unit = {},
+    toSettingsScreen: () -> Unit = {}
 ) {
     val xOffset by swapAnimateDpAsState(
         targetValue = 40.dp,
@@ -410,7 +430,10 @@ private fun RightMenu(
             onLaunchGame = onLaunchGame,
             toAccountManageScreen = toAccountManageScreen,
             toVersionManageScreen = toVersionManageScreen,
-            toVersionSettingsScreen = toVersionSettingsScreen
+            toVersionSettingsScreen = toVersionSettingsScreen,
+            toDownloadScreen = toDownloadScreen,
+            toMultiplayerScreen = toMultiplayerScreen,
+            toSettingsScreen = toSettingsScreen
         ) { innerModifier, onClick, text ->
             ScalingActionButton(
                 modifier = innerModifier,
@@ -491,6 +514,71 @@ private fun VersionManagerLayout(
                     }
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun QuickActionsGrid(
+    modifier: Modifier = Modifier,
+    onDownloadsClick: () -> Unit,
+    onMultiplayerClick: () -> Unit,
+    onSettingsClick: () -> Unit
+) {
+    Row(
+        modifier = modifier.fillMaxWidth(),
+        horizontalArrangement = Arrangement.spacedBy(8.dp)
+    ) {
+        QuickActionButton(
+            modifier = Modifier.weight(1f),
+            icon = painterResource(R.drawable.ic_download_2_filled),
+            label = stringResource(R.string.generic_download),
+            onClick = onDownloadsClick
+        )
+        QuickActionButton(
+            modifier = Modifier.weight(1f),
+            icon = painterResource(R.drawable.ic_group_filled),
+            label = stringResource(R.string.terracotta),
+            onClick = onMultiplayerClick
+        )
+        QuickActionButton(
+            modifier = Modifier.weight(1f),
+            icon = painterResource(R.drawable.ic_settings_filled),
+            label = stringResource(R.string.generic_setting),
+            onClick = onSettingsClick
+        )
+    }
+}
+
+@Composable
+private fun QuickActionButton(
+    icon: androidx.compose.ui.graphics.painter.Painter,
+    label: String,
+    onClick: () -> Unit,
+    modifier: Modifier = Modifier
+) {
+    BackgroundCard(
+        modifier = modifier.combinedClickable(onClick = onClick, onLongClick = {}),
+        shape = MaterialTheme.shapes.large
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 14.dp),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(6.dp)
+        ) {
+            Icon(
+                painter = icon,
+                contentDescription = label,
+                tint = MaterialTheme.colorScheme.primary,
+                modifier = Modifier.size(26.dp)
+            )
+            Text(
+                text = label,
+                style = MaterialTheme.typography.labelMedium,
+                maxLines = 1
+            )
         }
     }
 }

@@ -510,6 +510,21 @@ private fun NavigationUI(
                         },
                         onHomePageEvent = { event ->
                             eventViewModel.sendEvent(EventViewModel.Event.HomePage.Event(event))
+                        },
+                        toDownloadScreen = {
+                            screenBackStackModel.navigateToDownload()
+                        },
+                        toMultiplayerScreen = {
+                            screenBackStackModel.mainScreen.removeAndNavigateTo(
+                                removes = screenBackStackModel.clearBeforeNavKeys,
+                                screenKey = NormalNavKey.Multiplayer
+                            )
+                        },
+                        toSettingsScreen = {
+                            screenBackStackModel.mainScreen.removeAndNavigateTo(
+                                removes = screenBackStackModel.clearBeforeNavKeys,
+                                screenKey = screenBackStackModel.settingsScreen
+                            )
                         }
                     )
                 }
