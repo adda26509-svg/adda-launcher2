@@ -215,39 +215,39 @@ object VersionsManager {
         versionName?.let { name -> versions.any { it.getVersionName() == name } } ?: false
 
     /**
-     * @return 获取 Zalith 启动器版本标识文件夹
+     * @return 获取 Adda 启动器版本标识文件夹
      */
-    fun getZalithVersionPath(version: Version) = File(version.getVersionPath(), BuildKeys.LAUNCHER_IDENTIFIER)
+    fun getAddaVersionPath(version: Version) = File(version.getVersionPath(), BuildKeys.LAUNCHER_IDENTIFIER)
 
     /**
-     * @return 通过目录获取 Zalith 启动器版本标识文件夹
+     * @return 通过目录获取 Adda 启动器版本标识文件夹
      */
-    fun getZalithVersionPath(folder: File) = File(folder, BuildKeys.LAUNCHER_IDENTIFIER)
+    fun getAddaVersionPath(folder: File) = File(folder, BuildKeys.LAUNCHER_IDENTIFIER)
 
     /**
-     * @return 通过名称获取 Zalith 启动器版本标识文件夹
+     * @return 通过名称获取 Adda 启动器版本标识文件夹
      */
-    fun getZalithVersionPath(name: String) = File(getVersionPath(name), BuildKeys.LAUNCHER_IDENTIFIER)
+    fun getAddaVersionPath(name: String) = File(getVersionPath(name), BuildKeys.LAUNCHER_IDENTIFIER)
 
     /**
      * @return 游戏的上一次运行日志
      */
-    fun getLatestLog(version: Version) = File(getZalithVersionPath(version), LogName.GAME.fileName)
+    fun getLatestLog(version: Version) = File(getAddaVersionPath(version), LogName.GAME.fileName)
 
     /**
      * @return 获取当前版本设置的图标
      */
-    fun getVersionIconFile(version: Version) = File(getZalithVersionPath(version), "VersionIcon.png")
+    fun getVersionIconFile(version: Version) = File(getAddaVersionPath(version), "VersionIcon.png")
 
     /**
-     * @return 通过目录获取 Zalith 启动器版本标识文件夹
+     * @return 通过目录获取 Adda 启动器版本标识文件夹
      */
-    fun getVersionIconFile(folder: File) = File(getZalithVersionPath(folder), "VersionIcon.png")
+    fun getVersionIconFile(folder: File) = File(getAddaVersionPath(folder), "VersionIcon.png")
 
     /**
      * @return 通过名称获取当前版本设置的图标
      */
-    fun getVersionIconFile(name: String) = File(getZalithVersionPath(name), "VersionIcon.png")
+    fun getVersionIconFile(name: String) = File(getAddaVersionPath(name), "VersionIcon.png")
 
     /**
      * @return 通过名称获取版本的文件夹路径

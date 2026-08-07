@@ -23,7 +23,7 @@ import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.adda.launcher.R
 import com.adda.launcher.game.support.touch_controller.VibrationHandler
-import com.adda.launcher.game.version.installed.VersionsManager.getZalithVersionPath
+import com.adda.launcher.game.version.installed.VersionsManager.getAddaVersionPath
 import com.adda.launcher.setting.AllSettings
 import com.adda.launcher.utils.GSON
 import com.adda.launcher.utils.logging.Logger
@@ -164,9 +164,9 @@ class VersionConfig(
 
     @Throws(Throwable::class)
     fun saveWithThrowable() {
-        val zalithVersionPath = getZalithVersionPath(versionPath)
-        val configFile = File(zalithVersionPath, "version.config")
-        if (!zalithVersionPath.exists()) zalithVersionPath.mkdirs()
+        val addaVersionPath = getAddaVersionPath(versionPath)
+        val configFile = File(addaVersionPath, "version.config")
+        if (!addaVersionPath.exists()) addaVersionPath.mkdirs()
 
         FileWriter(configFile, false).use {
             val json = GSON.toJson(this)
@@ -258,7 +258,7 @@ class VersionConfig(
         }
 
         fun parseConfig(versionPath: File): VersionConfig {
-            val configFile = File(getZalithVersionPath(versionPath), "version.config")
+            val configFile = File(getAddaVersionPath(versionPath), "version.config")
 
             return runCatching getConfig@{
                 when {
