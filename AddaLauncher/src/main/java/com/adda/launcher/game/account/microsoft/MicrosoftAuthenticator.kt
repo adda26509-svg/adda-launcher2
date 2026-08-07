@@ -16,40 +16,40 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.microsoft
+package com.adda.launcher.game.account.microsoft
 
-import com.movtery.zalithlauncher.game.account.Account
-import com.movtery.zalithlauncher.game.account.AccountType
-import com.movtery.zalithlauncher.game.account.AccountsManager
-import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.BLOCKED_IP
-import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.FREQUENT
-import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.BANNED
-import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.BLOCKED_REGION
-import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.NOT_ACCEPTED_SERVICE
-import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.REACHED_PLAYTIME_LIMIT
-import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.REQUIRES_PROOF_OF_AGE
-import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.RESTRICTED
-import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.UNDERAGE
-import com.movtery.zalithlauncher.game.account.microsoft.XboxLoginException.ExceptionStatus.UNREGISTERED
-import com.movtery.zalithlauncher.game.account.microsoft.models.DeviceCodeResponse
-import com.movtery.zalithlauncher.game.account.microsoft.models.MinecraftAuthResponse
-import com.movtery.zalithlauncher.game.account.microsoft.models.TokenResponse
-import com.movtery.zalithlauncher.game.account.microsoft.models.XBLProperties
-import com.movtery.zalithlauncher.game.account.microsoft.models.XBLRequest
-import com.movtery.zalithlauncher.game.account.microsoft.models.XSTSAuthResult
-import com.movtery.zalithlauncher.game.account.microsoft.models.XSTSProperties
-import com.movtery.zalithlauncher.game.account.microsoft.models.XSTSRequest
-import com.movtery.zalithlauncher.game.account.wardrobe.SkinModelType
-import com.movtery.zalithlauncher.game.account.yggdrasil.findUsing
-import com.movtery.zalithlauncher.game.account.yggdrasil.getPlayerProfile
-import com.movtery.zalithlauncher.game.account.yggdrasil.getSkinModel
-import com.movtery.zalithlauncher.info.InfoDistributor
-import com.movtery.zalithlauncher.path.GLOBAL_CLIENT
-import com.movtery.zalithlauncher.utils.logging.Logger.lDebug
-import com.movtery.zalithlauncher.utils.network.httpPostJson
-import com.movtery.zalithlauncher.utils.network.safeBodyAsJson
-import com.movtery.zalithlauncher.utils.network.submitForm
-import com.movtery.zalithlauncher.utils.string.toUuidStr
+import com.adda.launcher.game.account.Account
+import com.adda.launcher.game.account.AccountType
+import com.adda.launcher.game.account.AccountsManager
+import com.adda.launcher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.BLOCKED_IP
+import com.adda.launcher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.FREQUENT
+import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.BANNED
+import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.BLOCKED_REGION
+import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.NOT_ACCEPTED_SERVICE
+import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.REACHED_PLAYTIME_LIMIT
+import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.REQUIRES_PROOF_OF_AGE
+import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.RESTRICTED
+import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.UNDERAGE
+import com.adda.launcher.game.account.microsoft.XboxLoginException.ExceptionStatus.UNREGISTERED
+import com.adda.launcher.game.account.microsoft.models.DeviceCodeResponse
+import com.adda.launcher.game.account.microsoft.models.MinecraftAuthResponse
+import com.adda.launcher.game.account.microsoft.models.TokenResponse
+import com.adda.launcher.game.account.microsoft.models.XBLProperties
+import com.adda.launcher.game.account.microsoft.models.XBLRequest
+import com.adda.launcher.game.account.microsoft.models.XSTSAuthResult
+import com.adda.launcher.game.account.microsoft.models.XSTSProperties
+import com.adda.launcher.game.account.microsoft.models.XSTSRequest
+import com.adda.launcher.game.account.wardrobe.SkinModelType
+import com.adda.launcher.game.account.yggdrasil.findUsing
+import com.adda.launcher.game.account.yggdrasil.getPlayerProfile
+import com.adda.launcher.game.account.yggdrasil.getSkinModel
+import com.adda.launcher.info.InfoDistributor
+import com.adda.launcher.path.GLOBAL_CLIENT
+import com.adda.launcher.utils.logging.Logger.lDebug
+import com.adda.launcher.utils.network.httpPostJson
+import com.adda.launcher.utils.network.safeBodyAsJson
+import com.adda.launcher.utils.network.submitForm
+import com.adda.launcher.utils.string.toUuidStr
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import io.ktor.client.plugins.ResponseException
@@ -369,6 +369,6 @@ private suspend fun <T> withRetry(
     initialDelay: Long = 1000,
     maxDelay: Long = 10_000,
     block: suspend () -> T
-): T = com.movtery.zalithlauncher.utils.network.withRetry(
+): T = com.adda.launcher.utils.network.withRetry(
     "MicrosoftAuthenticator", maxRetries, initialDelay, maxDelay, block
 )

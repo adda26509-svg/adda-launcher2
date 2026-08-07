@@ -16,17 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.auth_server
+package com.adda.launcher.game.account.auth_server
 
 import android.content.Context
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.coroutine.Task
-import com.movtery.zalithlauncher.coroutine.TaskSystem
-import com.movtery.zalithlauncher.game.account.Account
-import com.movtery.zalithlauncher.game.account.AccountsManager
-import com.movtery.zalithlauncher.game.account.auth_server.data.AuthServer
-import com.movtery.zalithlauncher.game.account.auth_server.models.AuthResult
-import com.movtery.zalithlauncher.utils.logging.Logger.lError
+import com.adda.launcher.R
+import com.adda.launcher.coroutine.Task
+import com.adda.launcher.coroutine.TaskSystem
+import com.adda.launcher.game.account.Account
+import com.adda.launcher.game.account.AccountsManager
+import com.adda.launcher.game.account.auth_server.data.AuthServer
+import com.adda.launcher.game.account.auth_server.models.AuthResult
+import com.adda.launcher.utils.logging.Logger.lError
 import kotlinx.coroutines.Dispatchers
 import java.util.Objects
 

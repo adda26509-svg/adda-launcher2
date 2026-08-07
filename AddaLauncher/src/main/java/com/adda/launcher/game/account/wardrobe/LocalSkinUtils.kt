@@ -16,13 +16,13 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.wardrobe
+package com.adda.launcher.game.account.wardrobe
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import androidx.core.graphics.alpha
-import com.movtery.zalithlauncher.utils.image.isColorMatch
-import com.movtery.zalithlauncher.utils.image.recycleIfLarge
+import com.adda.launcher.utils.image.isColorMatch
+import com.adda.launcher.utils.image.recycleIfLarge
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.io.File

@@ -16,14 +16,14 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.offline
+package com.adda.launcher.game.account.offline
 
-import com.movtery.zalithlauncher.game.account.Account
-import com.movtery.zalithlauncher.game.account.wardrobe.SkinModelType
-import com.movtery.zalithlauncher.info.InfoDistributor
-import com.movtery.zalithlauncher.utils.logging.Logger.lDebug
-import com.movtery.zalithlauncher.utils.logging.Logger.lError
-import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
+import com.adda.launcher.game.account.Account
+import com.adda.launcher.game.account.wardrobe.SkinModelType
+import com.adda.launcher.info.InfoDistributor
+import com.adda.launcher.utils.logging.Logger.lDebug
+import com.adda.launcher.utils.logging.Logger.lError
+import com.adda.launcher.utils.logging.Logger.lInfo
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json

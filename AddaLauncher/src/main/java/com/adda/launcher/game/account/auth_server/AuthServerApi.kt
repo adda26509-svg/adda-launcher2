@@ -16,23 +16,23 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.auth_server
+package com.adda.launcher.game.account.auth_server
 
 import android.content.Context
 import com.google.gson.Gson
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.game.account.Account
-import com.movtery.zalithlauncher.game.account.auth_server.models.AuthRequest
-import com.movtery.zalithlauncher.game.account.auth_server.models.AuthResult
-import com.movtery.zalithlauncher.game.account.auth_server.models.Refresh
-import com.movtery.zalithlauncher.info.InfoDistributor
-import com.movtery.zalithlauncher.path.GLOBAL_CLIENT
-import com.movtery.zalithlauncher.utils.logging.Logger.lDebug
-import com.movtery.zalithlauncher.utils.logging.Logger.lError
-import com.movtery.zalithlauncher.utils.network.safeBodyAsJson
-import com.movtery.zalithlauncher.utils.network.safeBodyAsText
-import com.movtery.zalithlauncher.utils.string.decodeUnicode
-import com.movtery.zalithlauncher.utils.string.toUuidStr
+import com.adda.launcher.R
+import com.adda.launcher.game.account.Account
+import com.adda.launcher.game.account.auth_server.models.AuthRequest
+import com.adda.launcher.game.account.auth_server.models.AuthResult
+import com.adda.launcher.game.account.auth_server.models.Refresh
+import com.adda.launcher.info.InfoDistributor
+import com.adda.launcher.path.GLOBAL_CLIENT
+import com.adda.launcher.utils.logging.Logger.lDebug
+import com.adda.launcher.utils.logging.Logger.lError
+import com.adda.launcher.utils.network.safeBodyAsJson
+import com.adda.launcher.utils.network.safeBodyAsText
+import com.adda.launcher.utils.string.decodeUnicode
+import com.adda.launcher.utils.string.toUuidStr
 import io.ktor.client.plugins.ClientRequestException
 import io.ktor.client.request.get
 import io.ktor.client.request.post

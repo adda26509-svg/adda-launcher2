@@ -16,17 +16,17 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account
+package com.adda.launcher.game.account
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.movtery.zalithlauncher.game.account.wardrobe.CapeFileDownloader
-import com.movtery.zalithlauncher.game.account.wardrobe.SkinFileDownloader
-import com.movtery.zalithlauncher.game.account.wardrobe.SkinModelType
-import com.movtery.zalithlauncher.game.account.wardrobe.getLocalUUIDWithSkinModel
-import com.movtery.zalithlauncher.path.PathManager
-import com.movtery.zalithlauncher.utils.logging.Logger.lError
-import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
+import com.adda.launcher.game.account.wardrobe.CapeFileDownloader
+import com.adda.launcher.game.account.wardrobe.SkinFileDownloader
+import com.adda.launcher.game.account.wardrobe.SkinModelType
+import com.adda.launcher.game.account.wardrobe.getLocalUUIDWithSkinModel
+import com.adda.launcher.path.PathManager
+import com.adda.launcher.utils.logging.Logger.lError
+import com.adda.launcher.utils.logging.Logger.lInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.joinAll

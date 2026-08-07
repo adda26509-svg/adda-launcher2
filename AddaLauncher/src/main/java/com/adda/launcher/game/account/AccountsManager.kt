@@ -16,21 +16,21 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account
+package com.adda.launcher.game.account
 
 import android.content.Context
-import com.movtery.zalithlauncher.R
-import com.movtery.zalithlauncher.coroutine.Task
-import com.movtery.zalithlauncher.coroutine.TaskSystem
-import com.movtery.zalithlauncher.database.AppDatabase
-import com.movtery.zalithlauncher.game.account.auth_server.data.AuthServer
-import com.movtery.zalithlauncher.game.account.auth_server.data.AuthServerDao
-import com.movtery.zalithlauncher.path.PathManager
-import com.movtery.zalithlauncher.setting.AllSettings
-import com.movtery.zalithlauncher.utils.isInGreaterChina
-import com.movtery.zalithlauncher.utils.logging.Logger.lError
-import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
-import com.movtery.zalithlauncher.utils.network.isNetworkAvailable
+import com.adda.launcher.R
+import com.adda.launcher.coroutine.Task
+import com.adda.launcher.coroutine.TaskSystem
+import com.adda.launcher.database.AppDatabase
+import com.adda.launcher.game.account.auth_server.data.AuthServer
+import com.adda.launcher.game.account.auth_server.data.AuthServerDao
+import com.adda.launcher.path.PathManager
+import com.adda.launcher.setting.AllSettings
+import com.adda.launcher.utils.isInGreaterChina
+import com.adda.launcher.utils.logging.Logger.lError
+import com.adda.launcher.utils.logging.Logger.lInfo
+import com.adda.launcher.utils.network.isNetworkAvailable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow

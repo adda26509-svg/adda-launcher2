@@ -16,18 +16,18 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.yggdrasil
+package com.adda.launcher.game.account.yggdrasil
 
-import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException
-import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.FREQUENT
-import com.movtery.zalithlauncher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.PROFILE_NOT_EXISTS
-import com.movtery.zalithlauncher.game.account.wardrobe.SkinModelType
-import com.movtery.zalithlauncher.path.GLOBAL_CLIENT
-import com.movtery.zalithlauncher.path.PathManager
-import com.movtery.zalithlauncher.utils.logging.Logger.lInfo
-import com.movtery.zalithlauncher.utils.network.downloadFileSuspend
-import com.movtery.zalithlauncher.utils.network.safeBodyAsJson
-import com.movtery.zalithlauncher.utils.network.withRetry
+import com.adda.launcher.game.account.microsoft.MinecraftProfileException
+import com.adda.launcher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.FREQUENT
+import com.adda.launcher.game.account.microsoft.MinecraftProfileException.ExceptionStatus.PROFILE_NOT_EXISTS
+import com.adda.launcher.game.account.wardrobe.SkinModelType
+import com.adda.launcher.path.GLOBAL_CLIENT
+import com.adda.launcher.path.PathManager
+import com.adda.launcher.utils.logging.Logger.lInfo
+import com.adda.launcher.utils.network.downloadFileSuspend
+import com.adda.launcher.utils.network.safeBodyAsJson
+import com.adda.launcher.utils.network.withRetry
 import io.ktor.client.plugins.ResponseException
 import io.ktor.client.request.forms.formData
 import io.ktor.client.request.forms.submitFormWithBinaryData

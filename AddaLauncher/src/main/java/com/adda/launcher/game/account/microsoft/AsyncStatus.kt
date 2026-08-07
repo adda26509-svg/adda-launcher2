@@ -16,7 +16,7 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.microsoft
+package com.adda.launcher.game.account.microsoft
 
 enum class AsyncStatus {
     GETTING_ACCESS_TOKEN,

@@ -16,9 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.wardrobe
+package com.adda.launcher.game.account.wardrobe
 
-import com.movtery.zalithlauncher.utils.logging.Logger.lWarning
+import com.adda.launcher.utils.logging.Logger.lWarning
 import java.io.File
 
 class SkinFileDownloader: WardrobeDownloader() {

@@ -16,9 +16,9 @@
  * along with this program.  If not, see <https://www.gnu.org/licenses/gpl-3.0.txt>.
  */
 
-package com.movtery.zalithlauncher.game.account.offline
+package com.adda.launcher.game.account.offline
 
-import com.movtery.zalithlauncher.game.account.wardrobe.SkinModelType
+import com.adda.launcher.game.account.wardrobe.SkinModelType
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
