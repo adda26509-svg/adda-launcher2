@@ -190,20 +190,21 @@ private fun ContentMenu(
                         .fillMaxWidth()
                         .padding(bottom = 12.dp),
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                ) {
-                    Text(
-                        text = stringResource(R.string.launcher_version_debug_warning, BuildKeys.LAUNCHER_NAME),
-                        style = MaterialTheme.typography.bodyMedium
-                    )
-                    Text(
-                        modifier = Modifier
-                            .alpha(0.8f)
-                            .align(Alignment.End),
-                        text = stringResource(R.string.launcher_version_debug_warning_cant_close),
-                        style = MaterialTheme.typography.bodySmall
-                    )
-                }
+                    contentColor = MaterialTheme.colorScheme.onPrimaryContainer,
+                    text = {
+                        Text(
+                            text = stringResource(R.string.launcher_version_debug_warning, BuildKeys.LAUNCHER_NAME),
+                            style = MaterialTheme.typography.bodyMedium
+                        )
+                        Text(
+                            modifier = Modifier
+                                .alpha(0.8f)
+                                .align(Alignment.End),
+                            text = stringResource(R.string.launcher_version_debug_warning_cant_close),
+                            style = MaterialTheme.typography.bodySmall
+                        )
+                    }
+                )
             }
         }
 
