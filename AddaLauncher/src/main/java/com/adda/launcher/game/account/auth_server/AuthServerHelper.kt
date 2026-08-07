@@ -26,7 +26,7 @@ import com.adda.launcher.game.account.Account
 import com.adda.launcher.game.account.AccountsManager
 import com.adda.launcher.game.account.auth_server.data.AuthServer
 import com.adda.launcher.game.account.auth_server.models.AuthResult
-import com.adda.launcher.utils.logging.Logger.lError
+import com.adda.launcher.utils.logging.lError
 import kotlinx.coroutines.Dispatchers
 import java.util.Objects
 

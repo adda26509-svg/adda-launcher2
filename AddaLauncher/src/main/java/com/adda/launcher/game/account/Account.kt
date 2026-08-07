@@ -25,8 +25,8 @@ import com.adda.launcher.game.account.wardrobe.SkinFileDownloader
 import com.adda.launcher.game.account.wardrobe.SkinModelType
 import com.adda.launcher.game.account.wardrobe.getLocalUUIDWithSkinModel
 import com.adda.launcher.path.PathManager
-import com.adda.launcher.utils.logging.Logger.lError
-import com.adda.launcher.utils.logging.Logger.lInfo
+import com.adda.launcher.utils.logging.lError
+import com.adda.launcher.utils.logging.lInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.joinAll

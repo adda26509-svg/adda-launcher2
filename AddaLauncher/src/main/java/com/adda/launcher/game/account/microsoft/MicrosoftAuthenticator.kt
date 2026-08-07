@@ -45,7 +45,7 @@ import com.adda.launcher.game.account.yggdrasil.getPlayerProfile
 import com.adda.launcher.game.account.yggdrasil.getSkinModel
 import com.adda.launcher.info.InfoDistributor
 import com.adda.launcher.path.GLOBAL_CLIENT
-import com.adda.launcher.utils.logging.Logger.lDebug
+import com.adda.launcher.utils.logging.lDebug
 import com.adda.launcher.utils.network.httpPostJson
 import com.adda.launcher.utils.network.safeBodyAsJson
 import com.adda.launcher.utils.network.submitForm

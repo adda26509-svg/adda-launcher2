@@ -21,9 +21,9 @@ package com.adda.launcher.game.account.offline
 import com.adda.launcher.game.account.Account
 import com.adda.launcher.game.account.wardrobe.SkinModelType
 import com.adda.launcher.info.InfoDistributor
-import com.adda.launcher.utils.logging.Logger.lDebug
-import com.adda.launcher.utils.logging.Logger.lError
-import com.adda.launcher.utils.logging.Logger.lInfo
+import com.adda.launcher.utils.logging.lDebug
+import com.adda.launcher.utils.logging.lError
+import com.adda.launcher.utils.logging.lInfo
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.serialization.kotlinx.json.json

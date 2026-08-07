@@ -24,7 +24,7 @@ import com.adda.launcher.game.account.microsoft.MinecraftProfileException.Except
 import com.adda.launcher.game.account.wardrobe.SkinModelType
 import com.adda.launcher.path.GLOBAL_CLIENT
 import com.adda.launcher.path.PathManager
-import com.adda.launcher.utils.logging.Logger.lInfo
+import com.adda.launcher.utils.logging.lInfo
 import com.adda.launcher.utils.network.downloadFileSuspend
 import com.adda.launcher.utils.network.safeBodyAsJson
 import com.adda.launcher.utils.network.withRetry

@@ -27,8 +27,8 @@ import com.adda.launcher.game.account.auth_server.models.AuthResult
 import com.adda.launcher.game.account.auth_server.models.Refresh
 import com.adda.launcher.info.InfoDistributor
 import com.adda.launcher.path.GLOBAL_CLIENT
-import com.adda.launcher.utils.logging.Logger.lDebug
-import com.adda.launcher.utils.logging.Logger.lError
+import com.adda.launcher.utils.logging.lDebug
+import com.adda.launcher.utils.logging.lError
 import com.adda.launcher.utils.network.safeBodyAsJson
 import com.adda.launcher.utils.network.safeBodyAsText
 import com.adda.launcher.utils.string.decodeUnicode

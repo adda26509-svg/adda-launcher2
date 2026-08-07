@@ -22,6 +22,7 @@ import com.google.gson.JsonObject
 import com.adda.launcher.path.createOkHttpClient
 import com.adda.launcher.utils.GSON
 import com.adda.launcher.utils.logging.Logger
+import com.adda.launcher.utils.logging.lError
 import com.adda.launcher.utils.network.fetchStringFromUrl
 import com.adda.launcher.utils.string.decodeBase64
 import okhttp3.Request

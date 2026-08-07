@@ -18,7 +18,7 @@
 
 package com.adda.launcher.game.account.wardrobe
 
-import com.adda.launcher.utils.logging.Logger.lWarning
+import com.adda.launcher.utils.logging.lWarning
 import java.io.File
 
 class SkinFileDownloader: WardrobeDownloader() {

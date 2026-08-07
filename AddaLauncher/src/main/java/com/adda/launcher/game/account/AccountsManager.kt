@@ -28,8 +28,8 @@ import com.adda.launcher.game.account.auth_server.data.AuthServerDao
 import com.adda.launcher.path.PathManager
 import com.adda.launcher.setting.AllSettings
 import com.adda.launcher.utils.isInGreaterChina
-import com.adda.launcher.utils.logging.Logger.lError
-import com.adda.launcher.utils.logging.Logger.lInfo
+import com.adda.launcher.utils.logging.lError
+import com.adda.launcher.utils.logging.lInfo
 import com.adda.launcher.utils.network.isNetworkAvailable
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

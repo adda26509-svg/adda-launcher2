@@ -40,7 +40,7 @@ import com.adda.launcher.game.account.microsoft.microsoftAuthAsync
 import com.adda.launcher.game.account.microsoft.toLocal
 import com.adda.launcher.ui.screens.content.elements.MicrosoftLoginOperation
 import com.adda.launcher.utils.copyText
-import com.adda.launcher.utils.logging.Logger.lError
+import com.adda.launcher.utils.logging.lError
 import com.adda.launcher.viewmodel.ErrorViewModel
 import io.ktor.client.plugins.HttpRequestTimeoutException
 import io.ktor.client.plugins.ResponseException
