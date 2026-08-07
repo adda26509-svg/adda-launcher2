@@ -90,6 +90,7 @@ import com.adda.launcher.ui.screens.content.AccountManageScreen
 import com.adda.launcher.ui.screens.content.DownloadScreen
 import com.adda.launcher.ui.screens.content.FileSelectorScreen
 import com.adda.launcher.ui.screens.content.HomePageEditorScreen
+import com.adda.launcher.ui.screens.content.FirstLoginMenu
 import com.adda.launcher.ui.screens.content.LauncherScreen
 import com.adda.launcher.ui.screens.content.LicenseScreen
 import com.adda.launcher.ui.screens.content.LogViewScreen
@@ -195,6 +196,11 @@ fun MainScreen(
                         screenKey = NormalNavKey.Multiplayer
                     )
                 },
+                toAccountManageScreen = {
+                    screenBackStackModel.mainScreen.navigateTo(
+                        screenKey = NormalNavKey.AccountManager(FirstLoginMenu.NONE)
+                    )
+                },
                 changeExpandedState = {
                     changeTasksExpandedState()
                 },
@@ -243,6 +249,7 @@ private fun <E: TitledNavKey> TopBar(
     toSettingsScreen: () -> Unit,
     toDownloadScreen: () -> Unit,
     toMultiplayerScreen: () -> Unit,
+    toAccountManageScreen: () -> Unit,
     changeExpandedState: () -> Unit,
 ) {
     val festivals = LocalFestivals.current
@@ -388,32 +395,24 @@ private fun <E: TitledNavKey> TopBar(
                     }
                 }
 
-                TopBarRailItem(
-                    selected = inMultiplayerScreen,
-                    painter = painterResource(R.drawable.ic_group_filled),
-                    text = stringResource(R.string.terracotta),
-                    onClick = {
-                        if (!inMultiplayerScreen) toMultiplayerScreen()
-                    },
-                )
-
-                TopBarRailItem(
-                    selected = inDownloadScreen,
-                    painter = painterResource(R.drawable.ic_download_2_filled),
-                    text = stringResource(R.string.generic_download),
-                    onClick = {
-                        if (!inDownloadScreen) toDownloadScreen()
-                    },
-                )
-
-                TopBarRailItem(
-                    selected = inSettingsScreen,
-                    painter = painterResource(R.drawable.ic_settings_filled),
-                    text = stringResource(R.string.generic_setting),
-                    onClick = {
-                        if (!inSettingsScreen) toSettingsScreen()
-                    },
-                )
+                Row(
+                    modifier = Modifier
+                        .clip(shape = MaterialTheme.shapes.large)
+                        .clickable { toAccountManageScreen() }
+                        .padding(horizontal = 12.dp, vertical = 6.dp),
+                    horizontalArrangement = Arrangement.spacedBy(6.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        modifier = Modifier.size(20.dp),
+                        painter = painterResource(R.drawable.ic_group_filled),
+                        contentDescription = stringResource(R.string.account_add)
+                    )
+                    Text(
+                        text = stringResource(R.string.account_add),
+                        style = MaterialTheme.typography.labelMedium
+                    )
+                }
             }
         }
     }
