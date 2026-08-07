@@ -406,10 +406,10 @@ private fun <E: TitledNavKey> TopBar(
                     Icon(
                         modifier = Modifier.size(20.dp),
                         painter = painterResource(R.drawable.ic_group_filled),
-                        contentDescription = stringResource(R.string.account_add)
+                        contentDescription = stringResource(R.string.account_add_new_account)
                     )
                     Text(
-                        text = stringResource(R.string.account_add),
+                        text = stringResource(R.string.account_add_new_account),
                         style = MaterialTheme.typography.labelMedium
                     )
                 }
